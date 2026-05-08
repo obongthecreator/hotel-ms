@@ -23,7 +23,7 @@
 
 .hrm-public-booking a,
 .hrm-frontend-dashboard a {
-  text-decoration: none;
+  text-decoration: none !important;
 }
 
 .hrm-public-booking button,
@@ -49,6 +49,7 @@
 .hrm-frontend-dashboard .hrm-brand-button {
   background-color: var(--hrm-brand-button) !important;
   background-image: linear-gradient(135deg, var(--hrm-brand-button) 0%, color-mix(in srgb, var(--hrm-brand-button) 64%, #000 36%) 52%, var(--hrm-brand-navy) 100%) !important;
+  text-decoration: none !important;
 }
 
 .hrm-public-booking .hover\:bg-primary-600:hover,
