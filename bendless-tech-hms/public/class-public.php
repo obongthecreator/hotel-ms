@@ -232,6 +232,13 @@ class HRM_Public {
 		$hotel_id       = HRM_License::get_current_hotel_id();
 		$hotel          = HRM_License::get_hotel( $hotel_id );
 		$rooms_service  = new HRM_Rooms();
+
+		// Sync room statuses before rendering so the dashboard always reflects
+		// accurate occupancy (respecting the 12:00 noon checkout rule).
+		if ( $hotel_id ) {
+			( new HRM_Bookings() )->sync_due_room_statuses( $hotel_id );
+		}
+
 		$bookings       = $hotel_id ? ( new HRM_Bookings() )->admin_list( $hotel_id ) : array();
 		$rooms          = $hotel_id ? $rooms_service->all( $hotel_id ) : array();
 		$stats          = $this->frontend_dashboard_stats( $hotel_id );

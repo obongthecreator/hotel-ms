@@ -631,7 +631,13 @@ class HRM_Bookings {
 		$hotel_id       = absint( $hotel_id );
 		$bookings_table = HRM_Database::table( 'bookings' );
 		$rooms_table    = HRM_Database::table( 'rooms' );
-		$today          = current_time( 'Y-m-d' );
+		$now            = current_time( 'timestamp' );
+		$today          = date( 'Y-m-d', $now );
+
+		// Checkout time is 12:00 noon. Rooms are freed after that hour passes.
+		$current_hour    = (int) current_time( 'H' );
+		$past_noon       = $current_hour >= 12;
+		$checkout_cutoff = $past_noon ? $today : date( 'Y-m-d', strtotime( '-1 day', $now ) );
 
 		if ( $hotel_id ) {
 			$bookings = $wpdb->get_results(
@@ -642,12 +648,35 @@ class HRM_Bookings {
 					$today
 				)
 			);
+
+			// Find expired bookings whose rooms are still marked occupied.
+			$expired = $wpdb->get_results(
+				$wpdb->prepare(
+					"SELECT b.id, b.hotel_id, b.room_id, b.status
+					FROM {$bookings_table} b
+					INNER JOIN {$rooms_table} r ON r.id = b.room_id AND r.hotel_id = b.hotel_id AND r.status = 'occupied'
+					WHERE b.hotel_id = %d AND b.check_out <= %s AND b.status IN ('confirmed','checked_in')",
+					$hotel_id,
+					$checkout_cutoff
+				)
+			);
 		} else {
 			$bookings = $wpdb->get_results(
 				$wpdb->prepare(
 					"SELECT hotel_id, room_id FROM {$bookings_table} WHERE check_in <= %s AND check_out > %s AND status IN ('confirmed','checked_in')",
 					$today,
 					$today
+				)
+			);
+
+			// Find expired bookings whose rooms are still marked occupied.
+			$expired = $wpdb->get_results(
+				$wpdb->prepare(
+					"SELECT b.id, b.hotel_id, b.room_id, b.status
+					FROM {$bookings_table} b
+					INNER JOIN {$rooms_table} r ON r.id = b.room_id AND r.hotel_id = b.hotel_id AND r.status = 'occupied'
+					WHERE b.check_out <= %s AND b.status IN ('confirmed','checked_in')",
+					$checkout_cutoff
 				)
 			);
 		}
@@ -667,6 +696,36 @@ class HRM_Bookings {
 
 			if ( false !== $updated ) {
 				$count++;
+			}
+		}
+
+		// Free rooms for expired/past-noon checkouts.
+		foreach ( $expired as $booking ) {
+			// Set room to 'cleaning' when the guest was physically checked in;
+			// set to 'available' when the booking was confirmed but never checked in.
+			$new_room_status = ( 'checked_in' === $booking->status ) ? 'cleaning' : 'available';
+
+			$wpdb->update(
+				$rooms_table,
+				array( 'status' => $new_room_status ),
+				array(
+					'id'       => (int) $booking->room_id,
+					'hotel_id' => (int) $booking->hotel_id,
+					'status'   => 'occupied', // Only override occupied; leave cleaning/maintenance alone.
+				),
+				array( '%s' ),
+				array( '%d', '%d', '%s' )
+			);
+
+			// Auto-checkout bookings that were physically checked in.
+			if ( 'checked_in' === $booking->status ) {
+				$wpdb->update(
+					$bookings_table,
+					array( 'status' => 'checked_out' ),
+					array( 'id' => (int) $booking->id ),
+					array( '%s' ),
+					array( '%d' )
+				);
 			}
 		}
 

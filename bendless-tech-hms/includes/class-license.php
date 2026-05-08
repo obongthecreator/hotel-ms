@@ -205,7 +205,24 @@ class HRM_License {
 			return true;
 		}
 
-		return in_array( $feature, $plan['features'], true );
+		if ( in_array( $feature, $plan['features'], true ) ) {
+			return true;
+		}
+
+		// Fallback: check the hardcoded default plan so that features added to
+		// HRM_PLANS after a site already saved its plan config still work.
+		$plan_slug    = sanitize_key( $hotel->plan );
+		$default_plan = isset( HRM_PLANS[ $plan_slug ] ) ? HRM_PLANS[ $plan_slug ] : null;
+		if ( $default_plan ) {
+			if ( array( '*' ) === $default_plan['features'] ) {
+				return true;
+			}
+			if ( in_array( $feature, $default_plan['features'], true ) ) {
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 	/**
