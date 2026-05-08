@@ -1,0 +1,108 @@
+.hrm-admin-shell,
+.hrm-admin-shell * {
+  box-sizing: border-box;
+}
+
+.hrm-admin-shell {
+  --hrm-brand-primary: #987CC0;
+  --hrm-brand-primary-dark: #866CB0;
+  --hrm-brand-primary-deep: #4f3577;
+  --hrm-brand-navy: #07142e;
+  --hrm-brand-ink: #000000;
+  --hrm-brand-paper: #ffffff;
+  min-height: calc(100vh - 32px);
+  background: var(--hrm-brand-paper);
+  color: var(--hrm-brand-ink);
+}
+
+.hrm-admin-shell a {
+  text-decoration: none;
+}
+
+.hrm-admin-shell button,
+.hrm-admin-shell input,
+.hrm-admin-shell select,
+.hrm-admin-shell textarea {
+  font-family: Inter, system-ui, sans-serif;
+}
+
+.hrm-admin-shell button:disabled {
+  cursor: wait;
+  opacity: 0.7;
+}
+
+.hrm-admin-shell table {
+  border-collapse: collapse;
+}
+
+.hrm-admin-shell .bg-primary-500 {
+  background-color: var(--hrm-brand-primary) !important;
+  background-image: linear-gradient(135deg, var(--hrm-brand-primary) 0%, var(--hrm-brand-primary-deep) 52%, var(--hrm-brand-navy) 100%) !important;
+}
+
+.hrm-admin-shell .hover\:bg-primary-600:hover {
+  background-color: var(--hrm-brand-primary-dark) !important;
+}
+
+.hrm-admin-shell .bg-primary-50 {
+  background-color: color-mix(in srgb, var(--hrm-brand-primary) 12%, #fff 88%) !important;
+}
+
+.hrm-admin-shell .text-primary-500,
+.hrm-admin-shell .text-primary-600,
+.hrm-admin-shell .text-primary-700 {
+  color: var(--hrm-brand-primary) !important;
+}
+
+.hrm-admin-shell .border-primary-500 {
+  border-color: var(--hrm-brand-primary) !important;
+}
+
+.hrm-admin-shell .ring-primary-500,
+.hrm-admin-shell .focus\:ring-primary-500:focus {
+  --tw-ring-color: var(--hrm-brand-primary) !important;
+}
+
+.hrm-admin-shell .bg-surface-900 {
+  background-color: #07142e !important;
+  background-image: linear-gradient(180deg, #12091f 0%, #07142e 58%, #000000 100%) !important;
+}
+
+.hrm-admin-shell .bg-surface-50,
+.hrm-admin-shell .bg-surface-100 {
+  background-color: #ffffff !important;
+}
+
+.hrm-admin-shell th,
+.hrm-admin-shell td {
+  border: 0;
+}
+
+body.hrm-modal-open {
+  overflow: hidden;
+}
+
+.hrm-sidebar {
+  height: calc(100vh - 32px);
+}
+
+.hrm-test-banner + .hrm-impersonation-banner + .hrm-sidebar,
+.hrm-test-banner + .hrm-sidebar {
+  top: 64px;
+  height: calc(100vh - 64px);
+}
+
+@media (max-width: 782px) {
+  .hrm-sidebar {
+    top: 46px;
+    height: calc(100vh - 46px);
+  }
+
+  .hrm-main {
+    padding-left: 0;
+  }
+
+  .hrm-sidebar {
+    transform: translateX(-100%);
+  }
+}
