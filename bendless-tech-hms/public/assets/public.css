@@ -1,0 +1,144 @@
+.hrm-public-booking,
+.hrm-public-booking *,
+.hrm-frontend-dashboard,
+.hrm-frontend-dashboard * {
+  box-sizing: border-box;
+}
+
+.hrm-public-booking,
+.hrm-frontend-dashboard {
+  --hrm-brand-primary: #987CC0;
+  --hrm-brand-button: #987CC0;
+  --hrm-brand-navy: #07142e;
+  --hrm-brand-text: #000000;
+  --hrm-brand-font: Inter, system-ui, sans-serif;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 24px 16px;
+  background: #ffffff;
+  color: var(--hrm-brand-text);
+  font-family: var(--hrm-brand-font);
+  isolation: isolate;
+}
+
+.hrm-public-booking a,
+.hrm-frontend-dashboard a {
+  text-decoration: none !important;
+}
+
+.hrm-public-booking button,
+.hrm-public-booking input,
+.hrm-public-booking select,
+.hrm-public-booking textarea,
+.hrm-frontend-dashboard button,
+.hrm-frontend-dashboard input,
+.hrm-frontend-dashboard select,
+.hrm-frontend-dashboard textarea {
+  font-family: var(--hrm-brand-font);
+}
+
+.hrm-public-booking button:disabled,
+.hrm-frontend-dashboard button:disabled {
+  cursor: not-allowed;
+  opacity: 0.78;
+}
+
+.hrm-public-booking .bg-primary-500,
+.hrm-frontend-dashboard .bg-primary-500,
+.hrm-public-booking .hrm-brand-button,
+.hrm-frontend-dashboard .hrm-brand-button {
+  background-color: var(--hrm-brand-button) !important;
+  background-image: linear-gradient(135deg, var(--hrm-brand-button) 0%, color-mix(in srgb, var(--hrm-brand-button) 64%, #000 36%) 52%, var(--hrm-brand-navy) 100%) !important;
+  text-decoration: none !important;
+}
+
+.hrm-public-booking .hover\:bg-primary-600:hover,
+.hrm-frontend-dashboard .hover\:bg-primary-600:hover,
+.hrm-public-booking .hrm-brand-button:hover,
+.hrm-frontend-dashboard .hrm-brand-button:hover {
+  background-color: color-mix(in srgb, var(--hrm-brand-button) 86%, #000 14%) !important;
+}
+
+.hrm-public-booking .bg-primary-50,
+.hrm-frontend-dashboard .bg-primary-50 {
+  background-color: color-mix(in srgb, var(--hrm-brand-primary) 12%, #fff 88%) !important;
+}
+
+.hrm-public-booking .text-primary-500,
+.hrm-public-booking .text-primary-600,
+.hrm-public-booking .text-primary-700,
+.hrm-frontend-dashboard .text-primary-500,
+.hrm-frontend-dashboard .text-primary-600,
+.hrm-frontend-dashboard .text-primary-700 {
+  color: var(--hrm-brand-primary) !important;
+}
+
+.hrm-public-booking .border-primary-500,
+.hrm-frontend-dashboard .border-primary-500 {
+  border-color: var(--hrm-brand-primary) !important;
+}
+
+.hrm-public-booking .ring-primary-500,
+.hrm-public-booking .focus\:ring-primary-500:focus,
+.hrm-frontend-dashboard .ring-primary-500,
+.hrm-frontend-dashboard .focus\:ring-primary-500:focus {
+  --tw-ring-color: var(--hrm-brand-primary) !important;
+}
+
+.hrm-public-booking .hrm-brand-button,
+.hrm-frontend-dashboard .hrm-brand-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: 10px;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1;
+  padding: 12px 16px;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.hrm-public-booking .hrm-back-listing .iconify,
+.hrm-public-booking .hrm-back-detail .iconify,
+.hrm-public-booking .hrm-gallery-prev .iconify {
+  transform: rotate(180deg);
+}
+
+.hrm-public-booking .hrm-room-grid {
+  min-height: 220px;
+}
+
+.hrm-public-booking .hrm-room-card {
+  will-change: transform;
+}
+
+.hrm-public-booking .hrm-detail-gallery img,
+.hrm-public-booking .hrm-summary-image img {
+  display: block;
+}
+
+.hrm-public-booking .hrm-summary-image .hrm-gallery-open {
+  pointer-events: none;
+}
+
+.hrm-frontend-dashboard .hrm-dashboard-card {
+  background: #ffffff;
+  border: 1px solid rgb(0 0 0 / 0.08);
+  border-radius: 16px;
+  box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.08), 0 1px 2px -1px rgb(0 0 0 / 0.08);
+}
+
+.hrm-frontend-dashboard .hrm-dashboard-table {
+  border-collapse: separate;
+  border-spacing: 0;
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .hrm-public-booking,
+  .hrm-frontend-dashboard {
+    padding: 16px 12px;
+  }
+}
